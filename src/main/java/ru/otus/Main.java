@@ -1,7 +1,7 @@
 package ru.otus;
 
 /**
- * Java Developer. Advanced
+ * Java Developer. Advanced (20-11-2025)
  */
 public class Main {
 

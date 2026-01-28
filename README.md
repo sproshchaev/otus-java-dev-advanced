@@ -1,2 +1,3 @@
 # otus-java-dev-advanced
-# Apache Camel в Highload как строить интеграции
+# ОУ "Apache Camel в Highload как строить интеграции"
+

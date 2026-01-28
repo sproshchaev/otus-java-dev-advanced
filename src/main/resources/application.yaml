@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: apache-camel-demo
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+camel:
+  springboot:
+    main-run-controller: true
+
+  # Конфигурация RabbitMQ для Camel
+  component:
+    spring-rabbitmq:
+      # Эти параметры теперь будут браться из spring.rabbitmq.*
+      auto-declare: false
+      auto-declare-producer: true
+      test-connection-on-startup: false  # Отключаем для отладки
+      # Переопределяем параметры если нужно
+      # addresses: localhost:5672
+      # username: guest
+      # password: guest
+      # virtual-host: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.apache.camel: DEBUG  # Временно включаем DEBUG для Camel
+    ru.otus.apache_camel_demo: DEBUG
+    org.springframework.amqp: DEBUG  # Включаем DEBUG для RabbitMQ
+    org.apache.camel.component.springrabbit: TRACE

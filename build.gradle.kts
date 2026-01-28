@@ -42,6 +42,9 @@ dependencies {
     implementation("org.apache.camel.springboot:camel-micrometer-starter:${project.extra["camel.version"]}")
     implementation("org.apache.camel.springboot:camel-disruptor-starter:${project.extra["camel.version"]}")
 
+    // Добавляем Kafka компонент для Camel
+    implementation("org.apache.camel.springboot:camel-kafka-starter:${project.extra["camel.version"]}")
+
     // Apache Camel Core Dependencies (without starter)
     implementation("org.apache.camel:camel-jsonpath:${project.extra["camel.version"]}")
 

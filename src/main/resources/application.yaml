@@ -8,6 +8,13 @@ spring:
     password: guest
     virtual-host: /
 
+# Настройки Kafka
+kafka:
+  bootstrap-servers: localhost:9093
+  topics:
+    queue1-messages: vowels-letters
+    queue2-messages: consonant-letters
+
 camel:
   springboot:
     main-run-controller: true
@@ -19,11 +26,13 @@ camel:
       auto-declare: false
       auto-declare-producer: true
       test-connection-on-startup: false  # Отключаем для отладки
-      # Переопределяем параметры если нужно
-      # addresses: localhost:5672
-      # username: guest
-      # password: guest
-      # virtual-host: /
+
+    # Конфигурация Kafka для Camel
+    kafka:
+      brokers: ${kafka.bootstrap-servers}
+      # Дополнительные настройки Kafka при необходимости
+      # key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 management:
   endpoints:
@@ -40,3 +49,5 @@ logging:
     ru.otus.apache_camel_demo: INFO
     org.springframework.amqp: INFO  # для RabbitMQ
     org.apache.camel.component.springrabbit: INFO
+    org.apache.camel.component.kafka: INFO  # для Kafka
+    org.apache.kafka: INFO

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: camel-integration-app
+
+# Конфигурация RabbitMQ для Camel
+camel:
+  component:
+    rabbitmq:
+      hostname: host.docker.internal
+      port: 5672
+      username: guest
+      password: guest
+      auto-delete: false
+      connection-timeout: 10000
+      requested-heartbeat: 30
+
+    # Конфигурация Kafka для Camel
+    kafka:
+      brokers: localhost:9093
+
+  springboot:
+    # Отключаем веб-сервер, так как нам нужно только интеграционное приложение
+    main-run-controller: true
+  main:
+    # Управляем жизненным циклом CamelContext
+    run-controller: true

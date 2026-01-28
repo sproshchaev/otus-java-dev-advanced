@@ -36,7 +36,7 @@ management:
 
 logging:
   level:
-    org.apache.camel: DEBUG  # Временно включаем DEBUG для Camel
-    ru.otus.apache_camel_demo: DEBUG
-    org.springframework.amqp: DEBUG  # Включаем DEBUG для RabbitMQ
-    org.apache.camel.component.springrabbit: TRACE
+    org.apache.camel: INFO  # для Camel
+    ru.otus.apache_camel_demo: INFO
+    org.springframework.amqp: INFO  # для RabbitMQ
+    org.apache.camel.component.springrabbit: INFO

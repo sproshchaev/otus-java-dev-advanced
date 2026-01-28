@@ -63,34 +63,3 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-// Configure Spring Boot plugin to include Java agent
-tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
-    jvmArgs("-javaagent:${buildDir}/javaagents/javaagent.jar")
-}
-
-// Task to copy Java agent (equivalent to maven-dependency-plugin)
-val copyAgent by tasks.registering(Copy::class) {
-    val agentDir = File(buildDir, "javaagents")
-    agentDir.mkdirs()
-
-    from(
-        configurations.create("agent").apply {
-            dependencies.add(
-                project.dependencies.create("co.elastic.apm:elastic-apm-agent:1.55.0")
-            )
-        }.files
-    ) {
-        rename { "javaagent.jar" }
-    }
-    into(agentDir)
-
-    doFirst {
-        println("Copying Java agent to ${agentDir.absolutePath}")
-    }
-}
-
-// Make sure agent is copied before bootJar runs
-tasks.named("bootJar") {
-    dependsOn(copyAgent)
-}

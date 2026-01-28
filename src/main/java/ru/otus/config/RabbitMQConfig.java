@@ -1,4 +1,4 @@
-package ru.otus;
+package ru.otus.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;

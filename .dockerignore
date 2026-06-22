@@ -1,0 +1,11 @@
+.git
+.gradle
+.idea
+*.iml
+README.md
+
+# Исключаем build, но оставляем готовый jar для простого Dockerfile
+build/*
+!build/libs
+build/libs/*
+!build/libs/*-SNAPSHOT.jar

@@ -1,0 +1,24 @@
+# Бонус: multi-stage build — собирает jar прямо внутри образа.
+# Не требует локальной сборки, не зависит от окружения разработчика.
+# Сборка: docker build -f Dockerfile.multistage -t hello-service:1.0 .
+
+# ---------- Этап 1: сборка jar внутри образа ----------
+FROM eclipse-temurin:21-jdk AS build
+WORKDIR /src
+
+# Сначала только файлы Gradle — слой с зависимостями кешируется между сборками
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle.kts settings.gradle.kts ./
+RUN chmod +x gradlew
+
+# Затем исходники и сборка исполняемого jar
+COPY src src
+RUN ./gradlew bootJar --no-daemon
+
+# ---------- Этап 2: лёгкий runtime-образ только с JRE ----------
+FROM eclipse-temurin:21-jre
+RUN mkdir /opt/app
+COPY --from=build /src/build/libs/*-SNAPSHOT.jar /opt/app/app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "/opt/app/app.jar"]

@@ -37,6 +37,8 @@ bin/
 /nbdist/
 /.nb-gradle/
 
+.cl*
+
 ### VS Code ###
 .vscode/
 
